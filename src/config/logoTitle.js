@@ -1,3 +1,3 @@
-const logoTitle="Zen!me"
+const logoTitle="Ani.MoM"
 
 export default logoTitle;
