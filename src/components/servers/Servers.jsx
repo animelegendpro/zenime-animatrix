@@ -1,5 +1,6 @@
 import {
   faClosedCaptioning,
+  faFile,
   faMicrophone,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,6 +16,7 @@ function Servers({
 }) {
   const subServers = servers?.filter((server) => server.type === "sub") || [];
   const dubServers = servers?.filter((server) => server.type === "dub") || [];
+  const rawServers = servers?.filter((server) => server.type === "raw") || [];
   return (
     <div className="relative bg-[#11101A] p-4 w-full min-h-[100px] flex justify-center items-center max-[1200px]:bg-[#14151A]">
       {serverLoading ? (
@@ -31,10 +33,45 @@ function Servers({
               </span>
             </p>
             <p className="leading-5 text-[14px] font-medium text-center">
-              If the current server doesn&apos;t work, please try other servers beside.
+              If the current server doesn&apos;t work, please try other servers
+              beside.
             </p>
           </div>
           <div className="bg-[#201F31] flex flex-col max-[600px]:h-full">
+            {rawServers.length > 0 && (
+              <div
+                className={`servers px-2 flex items-center flex-wrap ml-2 max-[600px]:py-2 ${
+                  dubServers.length === 0 || subServers.length === 0
+                    ? "h-1/2"
+                    : "h-full"
+                }`}
+              >
+                <div className="flex items-center gap-x-2">
+                  <FontAwesomeIcon
+                    icon={faFile}
+                    className="text-[#ffbade] text-[13px]"
+                  />
+                  <p className="font-bold text-[14px]">RAW:</p>
+                </div>
+                <div className="flex gap-x-[7px] ml-8 flex-wrap">
+                  {rawServers.map((item, index) => (
+                    <div
+                      key={index}
+                      className={`px-6 py-[5px] rounded-lg cursor-pointer ${
+                        activeServerId === item?.data_id
+                          ? "bg-[#ffbade] text-black"
+                          : "bg-[#373646] text-white"
+                      } max-[700px]:px-3`}
+                      onClick={() => setActiveServerId(item?.data_id)}
+                    >
+                      <p className="text-[13px] font-semibold">
+                        {item.serverName}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
             {subServers.length > 0 && (
               <div
                 className={`servers px-2 flex items-center flex-wrap ml-2 max-[600px]:py-2 ${
