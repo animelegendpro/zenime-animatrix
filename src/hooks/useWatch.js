@@ -91,6 +91,12 @@ export const useWatch = (animeId, initialEpisodeId) => {
           ) ||
           data.find(
             (server) => server.type === "dub" && server.serverName === "HD-2"
+          ) ||
+          data.find(
+            (server) => server.type === "raw" && server.serverName === "HD-1"
+          ) ||
+          data.find(
+            (server) => server.type === "raw" && server.serverName === "HD-2"
           );
         setServerLoading(false);
         setActiveServerId(initialServer?.data_id);
